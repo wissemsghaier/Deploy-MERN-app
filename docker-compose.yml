@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  frontend: 
+    container_name: frontend
+    build: 
+      context: app_front/
+    image: fronted-image
+    ports: 
+      - "80:80"
+    depends_on:
+      - backend
+    volumes:
+      - "./app_front:/app" 
+    networks:
+      - three-tier-net
+
+  backend:
+    container_name: backend
+    build: 
+      context: backend/
+    image: backend-image
+    ports: 
+      - "3003:3003"
+    environment:
+       # username: root et le mot de passe : mongopass et le nom de service : mongo 
+       - MONGO_URI=mongodb://root:mongopass@mongo:27017/authentication?authSource=admin
+       # - MONGO_URI=mongodb://root:mongopass@mongo:27017/authentication?authSource=admin
+       # - MONGO_CERT_PATH=/app/certs/mongodb-cert.crt
+
+    depends_on:
+      - mongo
+    volumes:
+      - "./backend/:/app" 
+      # - "./mongo-certs:/app/certs" 
+    networks:
+      - three-tier-net
+
+  mongo:
+    container_name: mongo-container
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mongopass
+      - MONGO_INITDB_DATABASE=authentication
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      #   - ./mongo-certs:/etc/mongo-certs
+      # command: mongod --tlsMode requireTLS --tlsCertificateKeyFile /etc/mongo-certs/mongodb.pem --tlsCAFile /etc/mongo-certs/mongodb-cert.crt
+
+    networks:
+      - three-tier-net
+
+networks:
+  three-tier-net:
+    driver: bridge
+
+volumes:
+  mongo-data:

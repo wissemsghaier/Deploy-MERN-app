@@ -3,13 +3,24 @@ pipeline {
     tools { nodejs "NodeJS" }
 
     environment {
-        MONGO_URI = 'mongodb://localhost:27017/authentication'
+        MONGO_URI = 'mongodb://root:mongopass@localhost:27017/authentication?authSource=admin'
     }
 
     stages {
         stage('Checkout') {
             steps {
                 git url: 'https://gitlab.com/wissemsghaier2000/gestion_users', branch: 'main'
+            }
+        }
+         stage('Build and Run Docker Compose') {
+            steps {
+                script {
+                    // Définir le répertoire de travail
+                    dir('/home/ubuntu/Gestion_Project') {
+                        // Construire et démarrer les services Docker
+                        sh 'docker-compose up --build -d'
+                    }
+                }
             }
         }
         stage('Install Dependencies') {

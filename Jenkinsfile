@@ -8,14 +8,31 @@ pipeline {
         git url: 'https://gitlab.com/wissemsghaier2000/gestion_users', branch: 'main'
       }
     }
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Building..'
+                script {
+                    dir('app_front') {
+                        sh 'npm install'
+                    }
+                    dir('backend') {
+                        sh 'npm install'
+                    }
+                    
+                }
             }
         }
-        stage('Test') {
+
+         stage('Run Tests') {
             steps {
-                echo 'Testing..'
+                script {
+                    dir('app_front') {
+                        sh 'npm test'
+                    }
+                    dir('backend') {
+                        sh 'npm test'
+                    }
+                    
+                }
             }
         }
         stage('Deploy') {

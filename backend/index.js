@@ -44,7 +44,7 @@ require("./security/passport")(passport);
 //   .catch((error) => console.error("Failed to connect to MongoDB", error));
 
 
-const mongoUri = process.env.MONGO_URI || "mongodb://root:mongopass@mongo:27017/authentication?authSource=admin";
+const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/authentication";
 // mongodb://root:mongopass@localhost:27017/authentication?authSource=admin
 
 

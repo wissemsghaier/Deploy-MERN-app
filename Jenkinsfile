@@ -1,8 +1,9 @@
 pipeline {
     agent any
     tools { nodejs "NodeJS" }
+
     environment {
-        MONGO_URI = 'mongodb://root:mongopass@localhost:27017/authentication?authSource=admin'
+        MONGO_URI = 'mongodb://localhost:27017/authentication'
     }
 
     stages {

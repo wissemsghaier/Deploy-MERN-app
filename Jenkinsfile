@@ -36,7 +36,7 @@ pipeline {
                     }
                     dir('backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS'){
-                            sh " npm run build"
+                            sh " npm run dev"
                         }
                     
                     }   

@@ -22,13 +22,12 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Définir le répertoire de travail pour l'installation des dépendances
-                    dir('/app_front') {
+                    dir('/home/ubuntu/Gestion_Project/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }
                     }
-                    dir('/backend') {
+                    dir('/home/ubuntu/Gestion_Project/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }

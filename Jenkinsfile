@@ -20,14 +20,20 @@ pipeline {
          stage('Install Dependencies') {
             steps {
                 script {
-                    dir('/app_front') {
-                        nodejs(nodeJSInstallationName: 'NodeJS') {
-                            sh 'npm install'
+                    dir('backend') {
+                        script {
+                        // Assurez-vous que Node.js est installé et accessible
+                            nodejs(nodeJSInstallationName: 'NodeJS') {
+                                sh 'npm install'
+                            }
                         }
                     }
-                    dir('/backend') {
-                        nodejs(nodeJSInstallationName: 'NodeJS') {
-                            sh 'npm install'
+                    dir('app_front') {
+                        script {
+                        // Assurez-vous que Node.js est installé et accessible
+                            nodejs(nodeJSInstallationName: 'NodeJS') {
+                                sh 'npm install'
+                            }
                         }
                     }
                 }
@@ -36,12 +42,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dir('/app_front') {
+                    dir('app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run build'
                         }
                     }
-                    dir('/backend') {
+                    dir('backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run dev'
                         }
@@ -52,12 +58,12 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    dir('/backend') {
+                    dir('backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run test'
                         }
                     }
-                    dir('/app_front') {
+                    dir('app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run test'
                         }

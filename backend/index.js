@@ -46,6 +46,7 @@ require("./security/passport")(passport);
 
 const mongoUri = process.env.MONGO_URI || "mongodb://root:mongopass@mongo:27017/authentication?authSource=admin";
 // mongodb://root:mongopass@localhost:27017/authentication?authSource=admin
+// mongodb://root:mongopass@localhost:27017/authentication?authSource=admin
 
 
   mongoose

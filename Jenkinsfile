@@ -23,12 +23,12 @@ pipeline {
             steps {
                 script {
                     // Définir le répertoire de travail pour l'installation des dépendances
-                    dir('/home/ubuntu/Gestion_Project/app_front') {
+                    dir('/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }
                     }
-                    dir('/home/ubuntu/Gestion_Project/backend') {
+                    dir('/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }
@@ -39,12 +39,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dir('/home/ubuntu/Gestion_Project/app_front') {
+                    dir('/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run build'
                         }
                     }
-                    dir('/home/ubuntu/Gestion_Project/backend') {
+                    dir('/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run dev'
                         }
@@ -55,12 +55,12 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    dir('/home/ubuntu/Gestion_Project/backend') {
+                    dir('/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run test'
                         }
                     }
-                    dir('/home/ubuntu/Gestion_Project/app_front') {
+                    dir('/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run test'
                         }

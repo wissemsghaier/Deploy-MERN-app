@@ -2,33 +2,23 @@ pipeline {
     agent any
     tools { nodejs "NodeJS" }
 
-    environment {
-        MONGO_URI = 'mongodb://root:mongopass@localhost:27017/authentication?authSource=admin'
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 git url: 'https://gitlab.com/wissemsghaier2000/gestion_users', branch: 'main'
             }
         }
-         stage('Build and Run Docker Compose') {
-            steps {
-                script {
-                        sh 'docker-compose up --build -d'
-                    }
-                }
-            }
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Définir le répertoire de travail pour l'installation des dépendances
-                    dir('/app_front') {
+                    dir('/home/ubuntu/Gestion_Project/app_front') {
+                        sh 'ls -l' // Liste les fichiers pour vérifier la présence de package.json
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }
                     }
-                    dir('/backend') {
+                    dir('/home/ubuntu/Gestion_Project/backend') {
+                        sh 'ls -l' // Liste les fichiers pour vérifier la présence de package.json
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }
@@ -39,12 +29,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dir('/app_front') {
+                    dir('/home/ubuntu/Gestion_Project/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run build'
                         }
                     }
-                    dir('/backend') {
+                    dir('/home/ubuntu/Gestion_Project/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run dev'
                         }
@@ -55,12 +45,12 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    dir('/backend') {
+                    dir('/home/ubuntu/Gestion_Project/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run test'
                         }
                     }
-                    dir('/app_front') {
+                    dir('/home/ubuntu/Gestion_Project/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm run test'
                         }

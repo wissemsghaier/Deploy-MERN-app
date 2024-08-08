@@ -51,11 +51,11 @@ pipeline {
                             sh 'npm run build'
                         }
                     }
-                    dir('backend') {
-                        nodejs(nodeJSInstallationName: 'NodeJS') {
-                            sh 'npm run dev'
-                        }
-                    }
+                    // dir('backend') {
+                    //     nodejs(nodeJSInstallationName: 'NodeJS') {
+                    //         sh 'npm run dev'
+                    //     }
+                    // }
                 }
             }
         }

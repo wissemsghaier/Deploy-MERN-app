@@ -15,9 +15,6 @@ pipeline {
          stage('Build and Run Docker Compose') {
             steps {
                 script {
-                    // Définir le répertoire de travail
-                    dir('/home/ubuntu/Gestion_Project') {
-                        // Construire et démarrer les services Docker
                         sh 'docker-compose up --build -d'
                     }
                 }

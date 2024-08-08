@@ -12,22 +12,22 @@ pipeline {
                 git url: 'https://gitlab.com/wissemsghaier2000/gestion_users', branch: 'main'
             }
         }
-         stage('Build and Run Docker Compose') {
-            steps {
-                script {
-                        sh 'docker-compose up --build -d'
-                    }
-                }
-            }
+        //  stage('Build and Run Docker Compose') {
+        //     steps {
+        //         script {
+        //                 sh 'docker-compose up --build -d'
+        //         }
+        //     }
+        // }
         stage('Install Dependencies') {
             steps {
                 script {
-                    dir('/home/ubuntu/Gestion_Project/app_front') {
+                    dir('/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }
                     }
-                    dir('/home/ubuntu/Gestion_Project/backend') {
+                    dir('/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }

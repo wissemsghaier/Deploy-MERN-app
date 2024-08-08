@@ -8,7 +8,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 git url: 'https://gitlab.com/wissemsghaier2000/gestion_users', branch: 'main'
-                sh 'ls -l /home/ubuntu/Gestion_Project/backend' // Vérifiez la présence de package.json
             }
         }
         //  stage('Build and Run Docker Compose') {
@@ -21,12 +20,12 @@ pipeline {
          stage('Install Dependencies') {
             steps {
                 script {
-                    dir('/home/ubuntu/Gestion_Project/app_front') {
+                    dir('/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }
                     }
-                    dir('/home/ubuntu/Gestion_Project/backend') {
+                    dir('/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }

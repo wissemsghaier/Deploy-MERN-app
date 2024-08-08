@@ -20,12 +20,12 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    dir('/app_front') {
+                    dir('/backend') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }
                     }
-                    dir('/backend') {
+                    dir('/app_front') {
                         nodejs(nodeJSInstallationName: 'NodeJS') {
                             sh 'npm install'
                         }

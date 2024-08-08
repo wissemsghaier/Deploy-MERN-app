@@ -1,6 +1,9 @@
 pipeline {
     agent any
     tools { nodejs "NodeJS" }
+    environment {
+        MONGO_URI = 'mongodb://root:mongopass@mongo:27017/authentication?authSource=admin'
+    }
 
     
 
@@ -13,7 +16,8 @@ pipeline {
         stage('Build and Run Docker Compose') {
            steps {
                script {
-                       sh 'docker-compose up -d mongo'
+                        sh 'docker-compose up -d mongo'
+                        sleep 10
                }
            }
        }

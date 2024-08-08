@@ -32,7 +32,7 @@ services:
     depends_on:
       - mongo
     volumes:
-      - "./backend/:/app" 
+      - "./backend:/app" 
       # - "./mongo-certs:/app/certs" 
     networks:
       - three-tier-net

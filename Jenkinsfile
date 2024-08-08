@@ -22,11 +22,11 @@ pipeline {
                             sh ' npm install'
                         }
                     
+                    }   
                 }
             }
         }
-
-         stage('Run Tests') {
+        stage('Run Tests') {
             steps {
                 script {
                     dir('app_front') {

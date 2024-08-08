@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    tools {nodejs "NodeJS"}
 
 
     stages {
@@ -12,11 +13,14 @@ pipeline {
             steps {
                 script {
                     dir('app_front') {
-                        sh 'npm install'
+                        nodejs(nodeJSInstallationName: 'NodeJS'){
+                            sh ' npm install'
+                        } 
                     }
                     dir('backend') {
-                        sh 'npm install'
-                    }
+                        nodejs(nodeJSInstallationName: 'NodeJS'){
+                            sh ' npm install'
+                        }
                     
                 }
             }
@@ -26,6 +30,7 @@ pipeline {
             steps {
                 script {
                     dir('app_front') {
+                        
                         sh 'npm test'
                     }
                     dir('backend') {

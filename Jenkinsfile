@@ -10,13 +10,13 @@ pipeline {
                 git url: 'https://gitlab.com/wissemsghaier2000/gestion_users', branch: 'main'
             }
         }
-        //  stage('Build and Run Docker Compose') {
-        //     steps {
-        //         script {
-        //                 sh 'docker-compose up --build -d'
-        //         }
-        //     }
-        // }
+        stage('Build and Run Docker Compose') {
+           steps {
+               script {
+                       sh 'docker-compose up --build -d'
+               }
+           }
+       }
          stage('Install Dependencies') {
             steps {
                 script {

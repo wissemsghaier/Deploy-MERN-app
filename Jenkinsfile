@@ -26,15 +26,41 @@ pipeline {
                 }
             }
         }
+        stage('build') {
+            steps {
+                script {
+                    dir('app_front') {
+                        nodejs(nodeJSInstallationName: 'NodeJS'){
+                            sh " npm run build"
+                        } 
+                    }
+                    dir('backend') {
+                        nodejs(nodeJSInstallationName: 'NodeJS'){
+                            sh " npm run build"
+                        }
+                    
+                    }   
+                }
+            }
+        }
+
         stage('Run Tests') {
             steps {
                 script {
                     dir('app_front') {
                         
-                        sh 'npm test'
+                        steps{
+                            nodejs(nodeJSInstallationName: 'NodeJS'){
+                                sh " npm run test "
+                            }
+                        }
                     }
                     dir('backend') {
-                        sh 'npm test'
+                        steps{
+                            nodejs(nodeJSInstallationName: 'NodeJS'){
+                                sh " npm run test "
+                            }
+                        }
                     }
                     
                 }
